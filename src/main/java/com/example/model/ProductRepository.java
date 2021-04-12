@@ -31,6 +31,10 @@ public class ProductRepository {
 	}
 
 	public void update(Product product) {
+		if(product.getId() == null) {
+			add(product);
+			return;
+		}
 		identityMap.put(product.getId(), product);
 	}
 
