@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 @RequestMapping("/product")
 public class TaskController {
@@ -38,13 +39,13 @@ public class TaskController {
 
 	@GetMapping("/new")
 	public String newProduct(Model model) {
-		// TODO: 09.04.2021 дописать добавление продукта
+		model.addAttribute("product", new Product(null, null, null, null));
 		return "task_views/product_form";
 	}
 
-	@GetMapping("/delete")
-	public String removeProduct(Model model) {
-		// TODO: 09.04.2021 дописать удаление продукта
-		return "task_views/index";
+	@GetMapping("/delete/{id}")
+	public String removeProduct(@PathVariable(value = "id") Long id) {
+		productRepository.remove(id);
+		return "redirect:/product";
 	}
 }
